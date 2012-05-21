@@ -51,12 +51,6 @@
 %
 function [argNames argValues invalidArgs] = getArgs(args,validVars,varargin)
 
-% check input arguments
-if ~any(nargin == [1 2 3 4])
-  help getArgs
-  return
-end
-
 % get our own arguments
 if ~ieNotDefined('varargin')
   getArgs(varargin);
