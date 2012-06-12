@@ -8,7 +8,7 @@ if ieNotDefined('r')
   r = '';
 end
 
-badchars = ' _-/:\~`';
+badchars = '() _-/:\~`';
 
 for b = badchars
   x = strrep(x,b,r);
