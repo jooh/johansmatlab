@@ -21,6 +21,8 @@ else
     valid = fieldnames(output);
 end
 
+input = unpackvarargin(input);
+
 [properties,values] = getArgs(input,valid,...
     'doAssignment=0','verbose',verbose);
 
