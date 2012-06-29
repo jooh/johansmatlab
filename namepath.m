@@ -8,6 +8,6 @@ if ieNotDefined('n')
 end
 n = n+1;
 st = dbstack;
-assert(length(st)<=n,'n exceeds stack length');
+assert(length(st)>=n,'n exceeds stack length');
 fname = st(n).name;
 fpath = fileparts(which(fname));
