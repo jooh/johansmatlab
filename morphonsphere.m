@@ -8,7 +8,7 @@
 % the search precision by setting tolerance (default 1e-2) and number of
 % iterations to try before crashing (default 10e3). 
 %
-% c = morphonsphere(a,b,s,[tolerance]);
+% c = morphonsphere(a,b,s,[tolerance],[totiter]);
 function c = morphonsphere(a,b,s,tolerance,totiter)
 
 if ieNotDefined('tolerance')
