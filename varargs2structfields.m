@@ -2,6 +2,10 @@
 % fields in a struct. We assume that the valid arguments are the output's
 % fieldnames. If the output is not provided any argument is accepted. verbose
 % (default 0) shows which arguments are being set.
+%
+% NB, if passing varargin in more than one level, be sure to pass
+% varargin{:} for correct behaviour.
+%
 % output = varargs2structfields(input,[output],[verbose])
 function output = varargs2structfields(input,output,verbose)
 
@@ -20,8 +24,6 @@ if ieNotDefined('output')
 else
     valid = fieldnames(output);
 end
-
-input = unpackvarargin(input);
 
 [properties,values] = getArgs(input,valid,...
     'doAssignment=0','verbose',verbose);
