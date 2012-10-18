@@ -1,5 +1,6 @@
 % Quick utility function for finding indices for all entries in a cell array x
-% that contain a string matching pattern p.
+% that contain a string matching pattern p. exactmatch defaults to 0 (if 1
+% you get a slower loop-based search)
 % inds = findStrInArray(x,p,exactmatch)
 % 13/2/2012 J Carlin
 function inds = findStrInArray(x,p,exactmatch)
