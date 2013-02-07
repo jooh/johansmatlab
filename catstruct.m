@@ -80,7 +80,7 @@ VAL = cat(1,VAL{:}) ;
 [UFN,ind] = unique(FN) ;
 
 if numel(UFN) ~= numel(FN),
-    warning('catstruct:DuplicatesFound','Duplicate fieldnames found. Last value is used and fields are sorted') ;
+    %warning('catstruct:DuplicatesFound','Duplicate fieldnames found. Last value is used and fields are sorted') ;
     sorted = 1 ;
 end
 
