@@ -60,5 +60,5 @@ end
 
 if convertback
     % Back to uint8
-    outimage = im2uint8(oi);
+    outimage = im2uint8(outimage);
 end

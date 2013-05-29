@@ -5,7 +5,7 @@
 % 13/2/2012 J Carlin
 function inds = findStrInArray(x,p,exactmatch)
 
-if isempty(x)
+if isempty(x) || isempty(p)
   inds = [];
   return
 end
