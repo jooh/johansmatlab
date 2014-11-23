@@ -10,4 +10,4 @@ if length(st) < 2
     return
 end
 parent = st(2).name;
-selfcall = length(findStrInArray({st.name},parent,1)) > 1;
+selfcall = length(strfindcell({st.name},parent,1)) > 1;
