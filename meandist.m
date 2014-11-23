@@ -7,5 +7,5 @@ nj = size(XJ,1);
 
 D = NaN([1 nj]);
 for n = 1:nj
-    D(n) = mean(XI,2) - mean(XJ(n,:),2);
+    D(n) = abs(mean(XI,2) - mean(XJ(n,:),2));
 end
