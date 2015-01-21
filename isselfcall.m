@@ -3,11 +3,12 @@
 % selfcall = isselfcall()
 function selfcall = isselfcall()
 
-st = dbstack;
+% get stack excluding this function
+st = dbstack(1);
 % catch calls from base
 if length(st) < 2
     selfcall = 0;
     return
 end
-parent = st(2).name;
-selfcall = length(strfindcell({st.name},parent,1)) > 1;
+parent = st(1).name;
+selfcall = any(strcmp({st(2:end).name},parent));
