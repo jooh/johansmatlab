@@ -1,5 +1,7 @@
 % round input x to y decimal places by operation. Default round but ceil
 % and floor are also useful (e.g. for rounding p values)
+%
+% x = reduceprecision(x,y,func)
 function x = reduceprecision(x,y,func)
 
 % Infinite precision with floating point? Good luck with that.
