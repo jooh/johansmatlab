@@ -13,7 +13,20 @@
 function outobj = rebuildobj(instruct,objclass)
 
 for n = 1:length(instruct)
-    outobj(n) = feval(objclass);
+    try
+        outobj(n) = feval(objclass);
+    catch exception
+        % this is necessary because these errors can be incredibly cryptic.
+        % They often arise when attempting to use parfor loops on object
+        % instances (where matlab internally will call load and save
+        % methods), resulting in weird behaviour where a code runs fine
+        % with for and fails with parfor.
+        if strcmp(exception.identifier,'MATLAB:minrhs')
+            error(['(rebuildobj) class %s does not support instancing ' ...
+                'with no inputs.'],objclass);
+        end
+        rethrow(exception);
+    end
 end
 
 for p = fieldnames(instruct)'
