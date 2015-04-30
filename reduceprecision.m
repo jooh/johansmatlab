@@ -1,6 +1,9 @@
 % round input x to y decimal places by operation. Default round but ceil
 % and floor are also useful (e.g. for rounding p values)
 %
+% for an algorithmic way to identify how many digits precision is needed,
+% see findprecision
+%
 % x = reduceprecision(x,y,func)
 function x = reduceprecision(x,y,func)
 
