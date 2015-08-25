@@ -30,6 +30,6 @@ if isempty(v)
 end
 
 if exist('assertconsistent','var') && assertconsistent==1
-    assert(isequal(v,val),['v and val inputs are set to inconsistent ' ...
+    assert(isequaln(v,val),['v and val inputs are set to inconsistent ' ...
         'values']);
 end
