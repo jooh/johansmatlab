@@ -20,6 +20,10 @@ valid = ~missing;
 
 for c = 1:size(alld,2)
     d = alld(:,c);
+    if all(missing(:,c))
+        logstr('column %d is all missing, skipping...\n',c);
+        continue
+    end
     % check for missing start/end, replace with constant
     if missing(1,c)
       firstvalid = find(valid(:,c),1,'first');
