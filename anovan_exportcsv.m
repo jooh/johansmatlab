@@ -4,6 +4,10 @@
 % anovan_exportcsv(filename,anovatable)
 function anovan_exportcsv(filename,data)
 
+if isempty(data)
+    return;
+end
+
 datamat = data(2:end,2:7);
 datamat(cellfun(@isempty,datamat)) = {NaN};
 datamat = cell2mat(datamat);
