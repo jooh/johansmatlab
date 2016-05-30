@@ -5,11 +5,15 @@
 % Non-numeric entries are ignored (we take the entry from the first array
 % and ignore all subsequent entries).
 %
-% out = collapsestruct(in,[collapsefun])
-function out = collapsestruct(in,collapsefun)
+% out = collapsestruct(in,[collapsefun],[docell])
+function out = collapsestruct(in,collapsefun,docell)
 
 if ieNotDefined('collapsefun')
     collapsefun = @matmean;
+end
+
+if ieNotDefined('docell')
+    docell = false;
 end
 
 out = in(1);
@@ -26,9 +30,7 @@ for fn = fieldnames(in)'
     assert(isequal(fieldclass{:}),'mismatched classes for %s',fnstr);
     % numeric and logicals get processed, all others just get ignored (take
     % first value)
-    if isnumeric(out.(fnstr)) || islogical(out.(fnstr))
-        %targetdim = ndims(out.(fnstr))+1;
-        %fullmat = cat(targetdim,d{:});
+    if isnumeric(out.(fnstr)) || islogical(out.(fnstr)) || (docell && iscell(out.(fnstr)))
         out.(fnstr) = feval(collapsefun,d{:});
     end
 end
