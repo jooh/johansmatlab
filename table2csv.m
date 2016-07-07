@@ -7,9 +7,13 @@
 % NAMED INPUT       DEFAULT         DESCRIPTION
 % precision         []              if present, round to precision decimal points
 % precfun           @round          function for rounding (ceil is good for p)
-% collabels         {}              if present, insert a header with these
-%                                       above the first row
-% rowlabels         {}              if present, prepend each row with these
+% collabels         {}              [n, size(data,2)+size(rowlabels,2)] cell
+%                                       array. If present, insert a header with
+%                                       these above the first row. Multiple rows
+%                                       are supported.
+% rowlabels         {}              [size(data,1), n] cell array. If present,
+%                                       prepend each row with these entries.
+%                                       Multiple columns are supported.
 %
 % table2csv(data,filename,varargin)
 function table2csv(data,filename,varargin)
@@ -21,12 +25,14 @@ dsz = size(data);
 assert(ismatrix(data),'input data must be 2D matrix');
 
 hascol = ~isempty(collabels);
+szcollab = size(collabels);
+szrowlab = size(rowlabels);
 hasrow = ~isempty(rowlabels);
 % NB we assume that if you have rowlabels, you will specify the label for
 % the rowlabels as the first entry in collabels
-assert(~hascol || numel(collabels)==(dsz(2)+hasrow),...
+assert(~hascol || szcollab(2)==(dsz(2)+hasrow*szrowlab(2)),...
     'collabels do not match size of input data')
-assert(~hasrow || numel(rowlabels)==dsz(1),...
+assert(~hasrow || szrowlab(1)==dsz(1),...
     'rowlabels do not match size of input data')
 
 floatformat = '%f';
@@ -45,16 +51,18 @@ fid = fopen(filename,'w');
 
 % maybe a title row?
 if hascol
-    formatter = [repmat(',%s',[1 numel(collabels)]) '\n'];
-    fprintf(fid,formatter(2:end),collabels{:});
+    formatter = [repmat(',%s',[1 szcollab(2)]) '\n'];
+    for r = 1:szcollab(1)
+        fprintf(fid,formatter(2:end),collabels{r,:});
+    end
 end
 
 % now data
 formatter = [repmat([',' floatformat],[1 dsz(2)]) '\n'];
 if hasrow
+    formatter = [repmat(',%s',[1 szrowlab(2)]) formatter];
     % insert the labels
-    formatter = [',%s' formatter];
-    datac = [rowlabels(:) datac];
+    datac = [rowlabels datac];
 end
 formatter = formatter(2:end);
 
