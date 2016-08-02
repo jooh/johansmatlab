@@ -101,9 +101,9 @@ for i = 1:length(args)
       argValues{end+1} = [];
     % if the argument is a numeric, than just set it
     elseif ((exist(args{i}(strfind(args{i},'=')+1:end)) ~= 2) && ...
-	~isempty(mrStr2num(args{i}(strfind(args{i},'=')+1:end))))
+	~isnan(str2double(args{i}(strfind(args{i},'=')+1:end))))
       argNames{end+1} = args{i}(1:strfind(args{i},'=')-1);
-      argValues{end+1} = mrStr2num(args{i}(strfind(args{i},'=')+1:end));
+      argValues{end+1} = str2double(args{i}(strfind(args{i},'=')+1:end));
     % same for a quoted string
     elseif args{i}(strfind(args{i},'=')+1)==''''
       argNames{end+1} = args{i}(1:strfind(args{i},'=')-1);
