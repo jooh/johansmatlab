@@ -13,6 +13,7 @@
 %   in a second output struct (default behaviour is to raise an exception when
 %   unknown inputs are encountered)
 % tests (struct) - struct with tests for some of the of the input args
+% ignoreempty (true) - use default for any input that evaluates to isempty
 %
 % OUTPUTS:
 % outarg - struct with one field per variable that appears in defaults
@@ -22,7 +23,7 @@
 % See also: varargs2structfields, structfields2varargs
 %
 % [outargs,unmatch] = varargparse(args,defaults,keepunmatched,tests)
-function [outargs,unmatch] = varargparse(args,defaults,keepunmatched,tests)
+function [outargs,unmatch] = varargparse(args,defaults,keepunmatched,tests,ignoreempty)
 
 % input parse (meta meta)
 unmatch = struct;
@@ -36,6 +37,8 @@ if ~exist('args','var') || isempty(args)
     return;
 end
 assert(iscell(args),'args must be cell array');
+assert(mod(numel(args),2)==0,...
+    'expected even number of args (key/value pairs)');
 if ~exist('keepunmatched','var') || isempty(keepunmatched)
     keepunmatched = false;
 end
@@ -43,6 +46,17 @@ if ~exist('tests','var') || isempty(tests)
     tests = struct;
 end
 assert(numel(tests)==1,'tests must be scalar struct-like');
+if ~exist('ignoreempty','var') || isempty(ignoreempty)
+    ignoreempty = true;
+end
+
+if ignoreempty
+    emptytest = cellfun(@isempty,args(2:2:end));
+    % need to remove every case, but in the full array
+    emptytest = [emptytest;emptytest];
+    emptytest = emptytest(:);
+    args(emptytest) = [];
+end
 
 % instance config
 p = inputParser;
