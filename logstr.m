@@ -8,7 +8,7 @@
 % Print behavior is controlled by the logstr_verbose global variable, which
 % can take the following values:
 %   0: no display at all
-%   1: display input text as is (standard fprintf behavior)
+%   1: prepend time stamp ('HH:MM yy/mm/dd')
 %   2: (default) as 1, also prepend function name in brackets
 %   3: as 2, also prepend line number
 %
@@ -36,5 +36,7 @@ if ind~=numel(d) && logstr_verbose > 1
   end
   prefix = ['(' prefix ') '];
 end
+
+prefix = [datestr(clock,'HH:MM yyyy/mm/dd') ' ' prefix];
 
 fprintf(['%s' txt],prefix,varargin{:});
