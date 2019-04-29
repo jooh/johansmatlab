@@ -16,8 +16,8 @@ end
 
 if ~exist('defaults','var') || isempty(defaults)
     % run in keepunmatched mode, catch the second output (unmatched outputs)
-    [~,output] = varargparse(incell{:},[],true);
+    [~,output] = varargparse(incell,[],true);
     return
 end
 % run in ~keepunmatched mode, take the first (matched outputs)
-output = varargparse(incell{:},defaults,false);
+output = varargparse(incell,defaults,false);
